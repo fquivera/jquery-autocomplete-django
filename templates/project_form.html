@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block extra_head %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+{% endblock extra_head %}
+
+{% block content %}
+    <form action="" method="post">{% csrf_token %}
+       {{ form.as_p }}
+       <input type="submit" name="submit" value="Save" />
+    </form>
+{% endblock content %}
+{% block js %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $( document ).ready( function() {
+            $("#id_person_display").autocomplete({
+                source: "{%  url 'person_auto_complete' %}",
+                dataType: "jsonp",
+                selectFirst: true,
+                minLength: 2,
+                select: function(event,ui) {
+                    $("#id_author").val(ui.item.id)
+                }
+            });
+        });
+    </script>
+{% endblock js %}
